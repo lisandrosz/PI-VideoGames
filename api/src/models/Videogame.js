@@ -8,13 +8,12 @@ module.exports = (sequelize) => {
     {
       id: {
         type: DataTypes.INTEGER,
+        autoIncrement: true,
+        initialValue: 1,
         allowNull: false,
         primaryKey: true,
         unique: true,
         /// Esto es para diferenciar el id de los videojuegos creados por el usuario a los traidos desde la API
-        get() {
-          return "Created " + this.getDataValue("id");
-        },
       },
       name: {
         type: DataTypes.STRING,
@@ -26,6 +25,10 @@ module.exports = (sequelize) => {
       },
       releaseDate: {
         type: DataTypes.DATEONLY,
+      },
+      background_image: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       rating: {
         type: DataTypes.INTEGER,
