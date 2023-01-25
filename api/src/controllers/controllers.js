@@ -1,4 +1,6 @@
 const axios = require("axios");
+const { response } = require("express");
+const { Op } = require("sequelize");
 require("dotenv").config();
 const { API_KEY } = process.env;
 const { Gender, Videogame } = require("../db");
@@ -101,9 +103,76 @@ const crearJuego = async (
   return juegoCreado;
 };
 
+const buscarJuegoQuery = async (name) => {
+  let respuesta;
+
+  // Primero busco dentro de mi DB si existe el juego buscado
+  respuesta = await Videogame.findAll({
+    where: {
+      name: {
+        // Uso iLike porque no es case sensitive
+        [Op.iLike]: "%" + name + "%",
+      },
+    },
+  });
+
+  // Ahora busco en la API si existen juegos con ese nombre
+  let busquedaAPI;
+  await axios
+    .get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`)
+    .then((response) => (busquedaAPI = response.data.results));
+
+  // Mapeo para solo enviar solo los 15 que me pide la ruta
+  busquedaAPI.map((game) => {
+    if (respuesta.length < 15) {
+      respuesta.push(game);
+    }
+  });
+
+  return respuesta;
+};
+
+const buscarPorID = async (id) => {
+  let detalleJuego;
+  // Me pregunto si el id empieza con "0"
+  if (id[0] === "0") {
+    // Busco en mi db
+    id = Number(id);
+    detalleJuego = await Videogame.findByPk(id, {
+      include: {
+        model: Gender,
+        through: {
+          attributes: [],
+        },
+      },
+    }).catch((error) => (detalleJuego = error.message));
+  } else {
+    // Busco en la API
+    id = Number(id);
+    detalleJuego = await axios
+      .get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
+      .then((response) => {
+        return (detalleJuego = {
+          name: response.data.name,
+          image: response.data.background_image,
+          description: response.data.description,
+          released: response.data.released,
+          rating: response.data.rating,
+          platforms: response.data.platforms,
+          genres: response.data.genres,
+        });
+      })
+      .catch((error) => (detalleJuego = error.message));
+  }
+
+  return detalleJuego;
+};
+
 module.exports = {
   cargaDB,
   consultaDB,
   crearJuego,
   cargarJuegos,
+  buscarJuegoQuery,
+  buscarPorID,
 };

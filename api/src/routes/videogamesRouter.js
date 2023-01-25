@@ -1,18 +1,42 @@
 const express = require("express");
 const router = express.Router();
-const axios = require("axios");
-const { crearJuego, cargarJuegos } = require("../controllers/controllers");
+const {
+  crearJuego,
+  cargarJuegos,
+  buscarJuegoQuery,
+  buscarPorID,
+} = require("../controllers/controllers");
 require("dotenv").config();
-const { API_KEY } = process.env;
 
 // GET /videogames
 
 router.get("/", async (req, res) => {
+  let { name } = req.query;
+  let resultados;
   try {
-    let resultados = await cargarJuegos();
+    // Me pregunto si viene algo como query
+    if (name) {
+      resultados = await buscarJuegoQuery(name);
+      if (resultados.length < 1) throw new Error("Juego no encontrado");
+    } else {
+      resultados = await cargarJuegos();
+    }
     res.status(200).json(resultados);
   } catch (error) {
-    console.log(error);
+    res.status(400).send(error.message);
+  }
+});
+
+// GET /videogame/{idVideogame}
+
+router.get("/:idVideogame", async (req, res) => {
+  try {
+    const { idVideogame } = req.params;
+    let response = await buscarPorID(idVideogame);
+
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(400).send(error.message);
   }
 });
 
