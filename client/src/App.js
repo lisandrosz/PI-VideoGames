@@ -2,9 +2,9 @@ import "./App.css";
 import { Route } from "react-router-dom";
 import VideogameDetails from ".//Components/VideogameDetails";
 import CreateVideogame from "./Components/CreateVideogame";
-import Home from "./components/Home";
-import Landing from "./components/Landing";
-import NavBar from "./components/NavBar";
+import Home from "./Components/Home";
+import Landing from "./Components/Landing";
+import NavBar from "./Components/NavBar";
 
 function App() {
   return (
