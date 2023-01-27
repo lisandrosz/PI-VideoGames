@@ -13,7 +13,7 @@ const NavBar = (props) => {
   return (
     <StyleNavBar>
       <HomeDiv>
-        <H1>Countries App</H1>
+        <H1>Videogames App</H1>
         <LinkDiv>
           <Link to={"/home"}>
             <P>Home</P>

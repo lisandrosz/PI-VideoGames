@@ -7,7 +7,7 @@ const Home = (props) => {
     <>
       <h1>Soy el Home</h1>
 
-      <Link to={"/details"}>Country details</Link>
+      <Link to={"/details"}>Videogame details</Link>
 
       <CartsContainer />
     </>
