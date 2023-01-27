@@ -8,6 +8,7 @@ const { Gender, Videogame } = require("../db");
 const cargarJuegos = async () => {
   let url = `https://api.rawg.io/api/games?key=${API_KEY}`;
   let respuesta;
+  let juegosAPI;
 
   // Primero traigo los juegos cargados en mi DB
   respuesta = await Videogame.findAll({
@@ -22,15 +23,14 @@ const cargarJuegos = async () => {
 
   // Ahora traigo los juegos desde la API
 
-  let juegosAPI;
-  await axios
-    .get(url)
-    .then((res) => (juegosAPI = res.data))
-    .catch((error) => (respuesta = error.message));
-
   while (respuesta.length < 100) {
-    juegosAPI.results.map((games) => respuesta.push(games));
-    url = respuesta.next;
+    await axios
+      .get(url)
+      .then((res) => {
+        res.data.results.map((games) => respuesta.push(games));
+        url = res.data.next;
+      })
+      .catch((error) => (respuesta = error.message));
   }
 
   respuesta = respuesta.map((game) => {
