@@ -18,14 +18,14 @@ const NavBar = (props) => {
           <Link to={"/home"}>
             <P>Home</P>
           </Link>
-          <Link to={"/activity"}>
-            <P>Create Activity</P>
+          <Link to={"/creategame"}>
+            <P>Crear Juego</P>
           </Link>
         </LinkDiv>
       </HomeDiv>
 
       <Div>
-        <input type="text" placeholder="Argentina..."></input>
+        <input type="text" placeholder="Buscar videojuego"></input>
         <button>Buscar</button>
       </Div>
     </StyleNavBar>
