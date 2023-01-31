@@ -8,11 +8,10 @@ const { Gender, Videogame } = require("../db");
 const cargarJuegos = async () => {
   let url = `https://api.rawg.io/api/games?key=${API_KEY}`;
   let respuesta;
-  let juegosAPI;
 
   // Primero traigo los juegos cargados en mi DB
   respuesta = await Videogame.findAll({
-    attributes: ["name", "background_image"],
+    attributes: ["name", "background_image", "id"],
     include: {
       model: Gender,
       through: {
@@ -35,6 +34,7 @@ const cargarJuegos = async () => {
 
   respuesta = respuesta.map((game) => {
     return {
+      id: game.id,
       name: game.name,
       image: game.background_image,
       genres: game.genres,
@@ -127,6 +127,16 @@ const buscarJuegoQuery = async (name) => {
     if (respuesta.length < 15) {
       respuesta.push(game);
     }
+  });
+
+  // Mapeo para enviar solo lo necesario
+  respuesta = respuesta.map((game) => {
+    return {
+      name: game.name,
+      image: game.background_image,
+      genres: game.genres,
+      genders: game.genders,
+    };
   });
 
   return respuesta;

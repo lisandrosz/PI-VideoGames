@@ -20,9 +20,10 @@ const Card = (props) => {
   return (
     <Container>
       <h1>{props.name}</h1>
-      <img src={props.image} alt="game image" width="200" height="100"></img>
+      <img src={props.image} alt="game" width="200" height="100"></img>
       {/* <p>{props.genres}</p> */}
       <div>
+        <p>Generos:</p>
         <hr />
         {props.genres.map((genre) => {
           return <p>{genre.name}</p>;

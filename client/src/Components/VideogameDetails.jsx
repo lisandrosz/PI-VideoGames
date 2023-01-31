@@ -1,6 +1,6 @@
 import React from "react";
 
-const CountryDetails = (props) => {
+const VideogameDetails = (props) => {
   return (
     <>
       <h1>Soy el VideogameDetails</h1>
@@ -8,4 +8,4 @@ const CountryDetails = (props) => {
   );
 };
 
-export default CountryDetails;
+export default VideogameDetails;

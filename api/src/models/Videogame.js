@@ -12,7 +12,6 @@ module.exports = (sequelize) => {
         initialValue: 1,
         allowNull: false,
         primaryKey: true,
-        unique: true,
         // Le pongo el 0 delante para diferenciar a la hora de mostrar el detalle
         get() {
           return "0" + this.getDataValue("id");

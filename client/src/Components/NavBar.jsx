@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { buscarJuegos } from "../redux/actions";
 import {
   StyleNavBar,
   P,
@@ -10,6 +12,17 @@ import {
 } from "../styles/styleNavBar";
 
 const NavBar = (props) => {
+  const [textState, setText] = useState("");
+  const dispatch = useDispatch();
+
+  const changeText = (evento) => {
+    setText(evento.target.value);
+  };
+
+  const clickButton = () => {
+    dispatch(buscarJuegos(textState));
+  };
+
   return (
     <StyleNavBar>
       <HomeDiv>
@@ -25,8 +38,13 @@ const NavBar = (props) => {
       </HomeDiv>
 
       <Div>
-        <input type="text" placeholder="Buscar videojuego"></input>
-        <button>Buscar</button>
+        <input
+          type="text"
+          placeholder="Buscar videojuego"
+          value={textState}
+          onChange={changeText}
+        ></input>
+        <button onClick={clickButton}>Buscar</button>
       </Div>
     </StyleNavBar>
   );
