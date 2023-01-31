@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import CartsContainer from "./CartsContainer";
 import store from "../redux/store";
 import { useDispatch } from "react-redux";
 import { traerJuegos } from "../redux/actions";
 import Filtrado from "./Filtrados";
+import Paginado from "./Paginado";
 
 const Home = (props) => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const Home = (props) => {
   return (
     <>
       <Filtrado />
-      <CartsContainer />
+      <Paginado />
     </>
   );
 };

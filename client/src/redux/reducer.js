@@ -69,6 +69,7 @@ const reducer = (state = initialState, action) => {
         ordenamiento: action.payload,
       };
     }
+    //
 
     default:
       return { ...state };

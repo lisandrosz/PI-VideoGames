@@ -1,10 +1,11 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { CardsContainer } from "../styles/styleContainer";
 import Card from "./Card";
 
 const CartsContainer = (props) => {
-  const videogames = useSelector((state) => state.videogames);
+  // const videogames = useSelector((state) => state.videogames);
+
+  const videogames = props.videogames;
 
   if (videogames) {
     return (
