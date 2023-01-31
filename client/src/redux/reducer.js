@@ -14,6 +14,7 @@ const initialState = {
   generos: [],
   filtroGenero: 0,
   filtroOrigen: "todos",
+  ordenamiento: "defecto",
 };
 
 const reducer = (state = initialState, action) => {
@@ -65,7 +66,7 @@ const reducer = (state = initialState, action) => {
     case ORDENADO: {
       return {
         ...state,
-        videogames: action.payload,
+        ordenamiento: action.payload,
       };
     }
 

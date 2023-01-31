@@ -34,92 +34,26 @@ export const traerGeneros = () => {
   };
 };
 
-// export const changeGenero = (id) => {
-//   return function (dispatch) {
-//     dispatch({ type: CHANGE_GENERO, payload: id });
-//     ///////////////////////////////////////////////
-//     // Esto lo intente hacer en una funcion aparte pero no funciono
-//     let estado = store.getState().allVideogames;
-//     let genero = store.getState().filtroGenero;
-//     let origen = store.getState().filtroOrigen;
-//     let filtrado = [];
-
-//     // Aca hago el filtrado por el genero del juego
-//     if (Number(genero) === 0) {
-//       filtrado = estado;
-//     } else {
-//       estado.forEach((game) => {
-//         game.genres.forEach((genre) => {
-//           if (genre.id === Number(genero)) {
-//             filtrado.push(game);
-//           }
-//         });
-//       });
-//     }
-
-//     // Ahora realizo el filtrado por el origen (existente o creado)
-//     if (origen === "todos") {
-//       // Se queda igual
-//     } else if (Number(origen) === 1) {
-//       filtrado = filtrado.filter((game) => game.id.toString()[0] !== "0");
-//     } else {
-//       filtrado = filtrado.filter((game) => game.id.toString()[0] === "0");
-//     }
-//     dispatch({ type: FILTRADO, payload: filtrado });
-//   };
-// };
-
-// export const changeOrigen = (id) => {
-//   return function (dispatch) {
-//     dispatch({ type: CHANGE_ORIGEN, payload: id });
-//     ///////////////////////////////////////////////
-//     // Esto lo intente hacer en una funcion aparte pero no funciono
-//     let estado = store.getState().allVideogames;
-//     let genero = store.getState().filtroGenero;
-//     let origen = store.getState().filtroOrigen;
-//     let filtrado = [];
-
-//     // Aca hago el filtrado por el genero del juego
-//     if (Number(genero) === 0) {
-//       filtrado = estado;
-//     } else {
-//       estado.forEach((game) => {
-//         game.genres.forEach((genre) => {
-//           if (genre.id === Number(genero)) {
-//             filtrado.push(game);
-//           }
-//         });
-//       });
-//     }
-
-//     // Ahora realizo el filtrado por el origen (existente o creado)
-//     if (origen === "todos") {
-//       // Se queda igual
-//     } else if (Number(origen) === 1) {
-//       filtrado = filtrado.filter((game) => game.id.toString()[0] !== "0");
-//     } else {
-//       filtrado = filtrado.filter((game) => game.id.toString()[0] === "0");
-//     }
-//     dispatch({ type: FILTRADO, payload: filtrado });
-//   };
-// };
-
 export const filter = (tipoFiltro, valor) => {
   return function (dispatch) {
+    let estado = store.getState().allVideogames;
+
     if (tipoFiltro === "genero") {
       dispatch({ type: CHANGE_GENERO, payload: valor });
     } else if (tipoFiltro === "origen") {
       dispatch({ type: CHANGE_ORIGEN, payload: valor });
+    } else if (tipoFiltro === "ordenado") {
+      dispatch({ type: ORDENADO, payload: valor });
     }
 
-    let estado = store.getState().allVideogames;
     let genero = store.getState().filtroGenero;
     let origen = store.getState().filtroOrigen;
+    let orden = store.getState().ordenamiento;
     let filtrado = [];
 
     // Aca hago el filtrado por el genero del juego
     if (Number(genero) === 0) {
-      filtrado = estado;
+      filtrado = [...estado];
     } else {
       estado.forEach((game) => {
         game.genres.forEach((genre) => {
@@ -138,41 +72,37 @@ export const filter = (tipoFiltro, valor) => {
     } else {
       filtrado = filtrado.filter((game) => game.id.toString()[0] === "0");
     }
+
+    // Ahora aplico los ordenamientos
+
+    if (orden === "defecto") {
+      // Se queda igual
+    } else if (orden === "az") {
+      filtrado = filtrado.sort((a, b) => {
+        if (a.name.toLowerCase() < b.name.toLowerCase()) {
+          return -1;
+        }
+        if (a.name.toLowerCase() > b.name.toLowerCase()) {
+          return 1;
+        }
+        return 0;
+      });
+    } else if (orden === "za") {
+      filtrado = filtrado.sort((a, b) => {
+        if (a.name.toLowerCase() > b.name.toLowerCase()) {
+          return -1;
+        }
+        if (a.name.toLowerCase() < b.name.toLowerCase()) {
+          return 1;
+        }
+        return 0;
+      });
+    } else if (orden === "mayorRating") {
+      filtrado = filtrado.sort((a, b) => b.rating - a.rating);
+    } else if (orden === "menorRating") {
+      filtrado = filtrado.sort((a, b) => a.rating - b.rating);
+    }
+
     dispatch({ type: FILTRADO, payload: filtrado });
   };
 };
-
-// export const ordenar = (valor) => {
-//   return function (dispatch) {
-//     let estado = store.getState().allVideogames;
-
-//     if (valor === "az") {
-//       estado = estado.sort((a, b) => {
-//         if (a.name.toLowerCase() < b.name.toLowerCase()) {
-//           return -1;
-//         }
-//         if (a.name.toLowerCase() > b.name.toLowerCase()) {
-//           return 1;
-//         }
-//         return 0;
-//       });
-//     } else if (valor === "za") {
-//       estado = estado.sort((a, b) => {
-//         if (a.name.toLowerCase() > b.name.toLowerCase()) {
-//           return -1;
-//         }
-//         if (a.name.toLowerCase() < b.name.toLowerCase()) {
-//           return 1;
-//         }
-//         return 0;
-//       });
-//     } else if (valor === "mayorRating") {
-//       estado = estado.sort((a, b) => b.rating - a.rating);
-//     } else if (valor === "menorRating") {
-//       estado = estado.sort((a, b) => a.rating - b.rating);
-//     } else {
-//       // No hago nada
-//     }
-//     dispatch({ type: ORDENADO, payload: estado });
-//   };
-// };

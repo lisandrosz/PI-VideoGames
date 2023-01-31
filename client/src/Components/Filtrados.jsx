@@ -13,28 +13,19 @@ const Filtrado = (props) => {
 
   const cambioGenero = (evento) => {
     dispatch(filter("genero", evento.target.value));
-    // dispatch(changeGenero(evento.target.value));
-    // filtrar()
   };
 
   const cambioOrigen = (evento) => {
     dispatch(filter("origen", evento.target.value));
-    // dispatch(changeOrigen(evento.target.value));
-    // filtrar()
   };
 
-  // const ordenado = (evento) => {
-  //   dispatch(ordenar(evento.target.value));
-  // };
+  const ordenamiento = (evento) => {
+    dispatch(filter("ordenado", evento.target.value));
+  };
 
   return (
     <Container>
-      <select
-        name="generos"
-        onChange={cambioGenero}
-        id={1}
-        onClick={cambioGenero}
-      >
+      <select name="generos" onChange={cambioGenero} id={1}>
         <option value={0}>Todos los generos</option>
         <option value={4}>Accion</option>
         <option value={51}>Indie</option>
@@ -57,18 +48,13 @@ const Filtrado = (props) => {
         <option value={17}>Cartas</option>
       </select>
 
-      <select
-        name="origen"
-        id="2"
-        onChange={cambioOrigen}
-        onClick={cambioOrigen}
-      >
+      <select name="origen" id="2" onChange={cambioOrigen}>
         <option value={"todos"}>Todos los videojuegos</option>
         <option value={1}>Videojuego existente</option>
         <option value={0}>Videojuego creado</option>
       </select>
 
-      <select name="ordenarAlfabeticamente" id="3">
+      <select name="ordenado" id="3" onChange={ordenamiento}>
         <option value={"defecto"}>Por defecto</option>
         <option value={"az"}>Ordenar: A-Z</option>
         <option value={"za"}>Ordenar: Z-A</option>
