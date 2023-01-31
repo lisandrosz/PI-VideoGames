@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { filtradoGenero, filtradoOrigen, filtrado } from "../redux/actions";
 import { useDispatch } from "react-redux";
 import { changeGenero, changeOrigen } from "../redux/actions";
 
@@ -14,20 +13,13 @@ const Filtrado = (props) => {
 
   const cambioGenero = (evento) => {
     dispatch(changeGenero(evento.target.value));
-    filtrado();
+    // filtrar()
   };
 
   const cambioOrigen = (evento) => {
     dispatch(changeOrigen(evento.target.value));
-    filtrado();
+    // filtrar()
   };
-  // const filtroGenero = (evento) => {
-  //   dispatch(filtradoGenero(evento.target.value));
-  // };
-
-  // const filtroOrigen = (evento) => {
-  //   dispatch(filtradoOrigen(evento.target.value));
-  // };
 
   return (
     <Container>

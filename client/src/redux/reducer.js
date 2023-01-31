@@ -2,8 +2,6 @@ import {
   TRAER_JUEGOS,
   BUSCAR_JUEGOS,
   TRAER_GENEROS,
-  FILTRADO_GENERO,
-  FILTRADO_ORIGEN,
   CHANGE_GENERO,
   CHANGE_ORIGEN,
   FILTRADO,
@@ -62,20 +60,6 @@ const reducer = (state = initialState, action) => {
         videogames: action.payload,
       };
     }
-
-    // case FILTRADO_GENERO: {
-    //   return {
-    //     ...state,
-    //     videogames: action.payload,
-    //   };
-    // }
-    // //
-    // case FILTRADO_ORIGEN: {
-    //   return {
-    //     ...state,
-    //     videogames: action.payload,
-    //   };
-    // }
 
     default:
       return { ...state };
