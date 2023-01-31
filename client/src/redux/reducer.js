@@ -5,6 +5,7 @@ import {
   CHANGE_GENERO,
   CHANGE_ORIGEN,
   FILTRADO,
+  ORDENADO,
 } from "./actions";
 
 const initialState = {
@@ -55,6 +56,13 @@ const reducer = (state = initialState, action) => {
     }
     //
     case FILTRADO: {
+      return {
+        ...state,
+        videogames: action.payload,
+      };
+    }
+    //
+    case ORDENADO: {
       return {
         ...state,
         videogames: action.payload,

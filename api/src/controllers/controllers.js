@@ -11,7 +11,7 @@ const cargarJuegos = async () => {
 
   // Primero traigo los juegos cargados en mi DB
   respuesta = await Videogame.findAll({
-    attributes: ["name", "background_image", "id"],
+    attributes: ["name", "background_image", "id", "rating"],
     include: {
       model: Genre,
       through: {
@@ -37,6 +37,7 @@ const cargarJuegos = async () => {
       id: game.id,
       name: game.name,
       image: game.background_image,
+      rating: game.rating,
       genres: game.genres,
     };
   });
