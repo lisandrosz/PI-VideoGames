@@ -3,7 +3,7 @@ const { response } = require("express");
 const { Op } = require("sequelize");
 require("dotenv").config();
 const { API_KEY } = process.env;
-const { Gender, Videogame } = require("../db");
+const { Genre, Videogame } = require("../db");
 
 const cargarJuegos = async () => {
   let url = `https://api.rawg.io/api/games?key=${API_KEY}`;
@@ -13,7 +13,7 @@ const cargarJuegos = async () => {
   respuesta = await Videogame.findAll({
     attributes: ["name", "background_image", "id"],
     include: {
-      model: Gender,
+      model: Genre,
       through: {
         attributes: [],
       },
@@ -38,7 +38,6 @@ const cargarJuegos = async () => {
       name: game.name,
       image: game.background_image,
       genres: game.genres,
-      genders: game.genders,
     };
   });
 
@@ -61,7 +60,7 @@ const cargaDB = async () => {
     };
   });
 
-  Gender.bulkCreate(genres).then(() =>
+  Genre.bulkCreate(genres).then(() =>
     console.log("Generos agregados a la Base de datos")
   );
 
@@ -71,7 +70,7 @@ const cargaDB = async () => {
 };
 
 const consultaDB = async () => {
-  const respuesta = await Gender.findAll();
+  const respuesta = await Genre.findAll();
   console.log("Consultado desde la DB");
 
   return respuesta;
@@ -97,7 +96,7 @@ const crearJuego = async (
 
   genres = JSON.parse(genres);
   genres.map(async (id) => {
-    await juegoCreado.addGenders(id);
+    await juegoCreado.addGenres(id);
   });
 
   return juegoCreado;
@@ -135,7 +134,6 @@ const buscarJuegoQuery = async (name) => {
       name: game.name,
       image: game.background_image,
       genres: game.genres,
-      genders: game.genders,
     };
   });
 
@@ -150,7 +148,7 @@ const buscarPorID = async (id) => {
     id = Number(id);
     detalleJuego = await Videogame.findByPk(id, {
       include: {
-        model: Gender,
+        model: Genre,
         through: {
           attributes: [],
         },

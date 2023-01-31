@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { filtradoGenero, filtradoOrigen } from "../redux/actions";
+import { filtradoGenero, filtradoOrigen, filtrado } from "../redux/actions";
 import { useDispatch } from "react-redux";
+import { changeGenero, changeOrigen } from "../redux/actions";
 
 const Container = styled.div`
   background-color: gray;
@@ -11,17 +12,26 @@ const Container = styled.div`
 const Filtrado = (props) => {
   const dispatch = useDispatch();
 
-  const filtroGenero = (evento) => {
-    dispatch(filtradoGenero(evento.target.value));
+  const cambioGenero = (evento) => {
+    dispatch(changeGenero(evento.target.value));
+    filtrado();
   };
 
-  const filtroOrigen = (evento) => {
-    dispatch(filtradoOrigen(evento.target.value));
+  const cambioOrigen = (evento) => {
+    dispatch(changeOrigen(evento.target.value));
+    filtrado();
   };
+  // const filtroGenero = (evento) => {
+  //   dispatch(filtradoGenero(evento.target.value));
+  // };
+
+  // const filtroOrigen = (evento) => {
+  //   dispatch(filtradoOrigen(evento.target.value));
+  // };
 
   return (
     <Container>
-      <select name="generos" onChange={filtroGenero} id={1}>
+      <select name="generos" onChange={cambioGenero} id={1}>
         <option value={0}>Todos los generos</option>
         <option value={4}>Accion</option>
         <option value={51}>Indie</option>
@@ -44,8 +54,8 @@ const Filtrado = (props) => {
         <option value={17}>Cartas</option>
       </select>
 
-      <select name="origen" id="2" onChange={filtroOrigen}>
-        <option value={false}>Todos los videojuegos</option>
+      <select name="origen" id="2" onChange={cambioOrigen}>
+        <option value={"todos"}>Todos los videojuegos</option>
         <option value={1}>Videojuego existente</option>
         <option value={0}>Videojuego creado</option>
       </select>
