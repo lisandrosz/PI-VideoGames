@@ -3,6 +3,7 @@ import store from "./store";
 export const TRAER_JUEGOS = "TRAER_JUEGOS";
 export const BUSCAR_JUEGOS = "BUSCAR_JUEGOS";
 export const TRAER_GENEROS = "TRAER_GENEROS";
+export const TRAER_DETALLE = "TRAER_DETALLE";
 export const CHANGE_GENERO = "CHANGE_GENERO";
 export const CHANGE_ORIGEN = "CHANGE_ORIGEN";
 export const FILTRADO = "FILTRADO";
@@ -144,5 +145,21 @@ export const botonHome = (games) => {
 export const buscado = (estado) => {
   return function (dispatch) {
     dispatch({ type: BUSCADO, payload: estado });
+  };
+};
+
+export const traerDetalle = (id) => {
+  return function (dispatch) {
+    axios
+      .get(`http://localhost:3001/videogames/${Number(id)}`)
+      .then((response) => {
+        dispatch({ type: TRAER_DETALLE, payload: response.data });
+      });
+  };
+};
+
+export const limpiarDetalle = () => {
+  return function (dispatch) {
+    dispatch({ type: "LIMPIAR_DETALLE" });
   };
 };

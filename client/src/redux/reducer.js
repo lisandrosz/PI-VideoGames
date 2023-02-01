@@ -1,16 +1,19 @@
-import {
-  TRAER_JUEGOS,
-  BUSCAR_JUEGOS,
-  TRAER_GENEROS,
-  CHANGE_GENERO,
-  CHANGE_ORIGEN,
-  FILTRADO,
-  ORDENADO,
-  CAMBIO_INDICE,
-  PAGINA_ACTUAL,
-  BOTON_HOME,
-  BUSCADO,
-} from "./actions";
+// import {
+//   TRAER_JUEGOS,
+//   BUSCAR_JUEGOS,
+//   TRAER_GENEROS,
+//   CHANGE_GENERO,
+//   CHANGE_ORIGEN,
+//   FILTRADO,
+//   ORDENADO,
+//   CAMBIO_INDICE,
+//   PAGINA_ACTUAL,
+//   BOTON_HOME,
+//   BUSCADO,
+//   TRAER_DETALLE,
+// } from "./actions";
+
+// Me daba un error de inicializacion a veces
 
 const initialState = {
   allVideogames: [],
@@ -25,12 +28,13 @@ const initialState = {
     condicion: false,
     juegos: [],
   },
+  detalle: {},
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     //
-    case TRAER_JUEGOS: {
+    case "TRAER_JUEGOS": {
       return {
         ...state,
         videogames: action.payload,
@@ -38,7 +42,7 @@ const reducer = (state = initialState, action) => {
       };
     }
     //
-    case BUSCAR_JUEGOS: {
+    case "BUSCAR_JUEGOS": {
       return {
         ...state,
         videogames: action.payload,
@@ -46,66 +50,80 @@ const reducer = (state = initialState, action) => {
       };
     }
     //
-    case TRAER_GENEROS: {
+    case "TRAER_GENEROS": {
       return {
         ...state,
         generos: action.payload,
       };
     }
     //
-    case CHANGE_GENERO: {
+    case "CHANGE_GENERO": {
       return {
         ...state,
         filtroGenero: action.payload,
       };
     }
     //
-    case CHANGE_ORIGEN: {
+    case "CHANGE_ORIGEN": {
       return {
         ...state,
         filtroOrigen: action.payload,
       };
     }
     //
-    case FILTRADO: {
+    case "FILTRADO": {
       return {
         ...state,
         videogames: action.payload,
       };
     }
     //
-    case ORDENADO: {
+    case "ORDENADO": {
       return {
         ...state,
         ordenamiento: action.payload,
       };
     }
     //
-    case CAMBIO_INDICE: {
+    case "CAMBIO_INDICE": {
       return {
         ...state,
         indice: action.payload,
       };
     }
     //
-    case PAGINA_ACTUAL: {
+    case "PAGINA_ACTUAL": {
       return {
         ...state,
         paginaActual: action.payload,
       };
     }
     //
-    case BOTON_HOME: {
+    case "BOTON_HOME": {
       return {
         ...state,
         videogames: action.payload,
       };
     }
     //
-    case BUSCADO: {
+    case "BUSCADO": {
       return {
         ...state,
         buscado: { ...state.buscado, condicion: action.payload },
+      };
+    }
+    //
+    case "TRAER_DETALLE": {
+      return {
+        ...state,
+        detalle: action.payload,
+      };
+    }
+    //
+    case "LIMPIAR_DETALLE": {
+      return {
+        ...state,
+        detalle: {},
       };
     }
 

@@ -12,7 +12,8 @@ const CartsContainer = (props) => {
       <CardsContainer>
         {videogames.map((game) => (
           <Card
-            key={game.ig}
+            key={game.id}
+            id={game.id}
             name={game.name}
             image={game.image}
             genres={game.genres}

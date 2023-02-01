@@ -26,13 +26,16 @@ const Paginado = (props) => {
 
   const itemsPorPagina = 15;
 
-  const items = () => {
-    return videogames.slice(indice, indice + itemsPorPagina);
-  };
+  // const items = () => {
+  //   return videogames.slice(indice, indice + itemsPorPagina);
+  // };
+  const items = videogames.slice(indice, indice + itemsPorPagina);
 
   const nextHandler = () => {
-    dispatch(cambioPagina(paginaActual + 1));
-    dispatch(cambioIndice(indice + itemsPorPagina));
+    if (items.length === itemsPorPagina) {
+      dispatch(cambioPagina(paginaActual + 1));
+      dispatch(cambioIndice(indice + itemsPorPagina));
+    }
   };
 
   const prevHandler = () => {
@@ -56,7 +59,7 @@ const Paginado = (props) => {
         </button>
       </Container>
 
-      <CartsContainer videogames={items()} />
+      <CartsContainer videogames={items} />
     </>
   );
 };

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -19,20 +20,21 @@ const Container = styled.div`
 const Card = (props) => {
   return (
     <Container>
-      <h1>{props.name}</h1>
-      <img src={props.image} alt="game" width="200" height="100"></img>
-      {/* <p>{props.genres}</p> */}
-      <div>
-        <p>Generos:</p>
-        <hr />
-        {props.genres.map((genre) => {
-          return <p>{genre.name}</p>;
-        })}
-        <hr />
-      </div>
+      <Link to={`/details/${props.id}`}>
+        <h1>{props.name}</h1>
+        <img src={props.image} alt="game" width="200" height="100"></img>
+        {/* <p>{props.genres}</p> */}
+        <div>
+          <p>Generos:</p>
+          <hr />
+          {props.genres.map((genre) => {
+            return <p>{genre.name}</p>;
+          })}
+          <hr />
+        </div>
 
-      <hr />
-      {/* <Link to={"/details"}>Videogame details</Link> */}
+        <hr />
+      </Link>
     </Container>
   );
 };

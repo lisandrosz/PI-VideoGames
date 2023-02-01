@@ -13,18 +13,17 @@ function App() {
         <Landing />
       </Route>
 
-      <Route exact path={"/home"}>
+      <Route>
         <NavBar />
+      </Route>
+
+      <Route exact path={"/home"}>
         <Home />
       </Route>
 
-      <Route exact path={"/details"}>
-        <NavBar />
-        <VideogameDetails />
-      </Route>
+      <Route exact path={"/details/:id"} component={VideogameDetails} />
 
       <Route exact path={"/creategame"}>
-        <NavBar />
         <CreateVideogame />
       </Route>
     </div>
