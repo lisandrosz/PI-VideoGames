@@ -9,6 +9,8 @@ export const FILTRADO = "FILTRADO";
 export const ORDENADO = "ORDENADO";
 export const CAMBIO_INDICE = "CAMBIO_INDICE";
 export const PAGINA_ACTUAL = "PAGINA_ACTUAL";
+export const BOTON_HOME = "BOTON_HOME";
+export const BUSCADO = "BUSCADO";
 
 export const traerJuegos = () => {
   return function (dispatch) {
@@ -23,6 +25,7 @@ export const buscarJuegos = (name) => {
     axios
       .get(`http://localhost:3001/videogames?name=${name}`)
       .then((response) => {
+        dispatch({ type: BUSCADO, payload: true });
         dispatch({ type: PAGINA_ACTUAL, payload: 1 });
         dispatch({ type: CAMBIO_INDICE, payload: 0 });
         dispatch({ type: BUSCAR_JUEGOS, payload: response.data });
@@ -41,6 +44,13 @@ export const traerGeneros = () => {
 export const filter = (tipoFiltro, valor) => {
   return function (dispatch) {
     let estado = store.getState().allVideogames;
+
+    //Para combinar la busqueda con el filtrado
+    const buscado = store.getState().buscado;
+
+    if (buscado.condicion) {
+      estado = [...store.getState().buscado.juegos];
+    }
 
     if (tipoFiltro === "genero") {
       dispatch({ type: CHANGE_GENERO, payload: valor });
@@ -122,5 +132,17 @@ export const cambioIndice = (pagina) => {
 export const cambioPagina = (pagina) => {
   return function (dispatch) {
     dispatch({ type: PAGINA_ACTUAL, payload: pagina });
+  };
+};
+
+export const botonHome = (games) => {
+  return function (dispatch) {
+    dispatch({ type: BOTON_HOME, payload: games });
+  };
+};
+
+export const buscado = (estado) => {
+  return function (dispatch) {
+    dispatch({ type: BUSCADO, payload: estado });
   };
 };

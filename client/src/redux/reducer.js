@@ -8,6 +8,8 @@ import {
   ORDENADO,
   CAMBIO_INDICE,
   PAGINA_ACTUAL,
+  BOTON_HOME,
+  BUSCADO,
 } from "./actions";
 
 const initialState = {
@@ -19,6 +21,10 @@ const initialState = {
   ordenamiento: "defecto",
   indice: 0,
   paginaActual: 1,
+  buscado: {
+    condicion: false,
+    juegos: [],
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -36,6 +42,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         videogames: action.payload,
+        buscado: { ...state.buscado, juegos: action.payload },
       };
     }
     //
@@ -85,6 +92,20 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         paginaActual: action.payload,
+      };
+    }
+    //
+    case BOTON_HOME: {
+      return {
+        ...state,
+        videogames: action.payload,
+      };
+    }
+    //
+    case BUSCADO: {
+      return {
+        ...state,
+        buscado: { ...state.buscado, condicion: action.payload },
       };
     }
 

@@ -44,33 +44,6 @@ const Paginado = (props) => {
     }
   };
 
-  //   const handler = (direccion) => {
-  //     if (direccion === "next") {
-  //       const cantidadPaginas = Math.ceil(videogames.length / itemsPorPagina);
-  //       const nextPage = paginaActual + 1;
-  //       const firstIndex = nextPage * itemsPorPagina;
-
-  //       if (paginaActual === cantidadPaginas || paginaActual > cantidadPaginas) {
-  //         return;
-  //       }
-
-  //       setItems([...videogames].splice(firstIndex, itemsPorPagina));
-  //       setPaginaActual(nextPage);
-  //     } else if (direccion === "prev") {
-  //       const prevPage = paginaActual - 1;
-
-  //       if (prevPage < 1) return;
-
-  //       const firstIndex = prevPage * itemsPorPagina;
-  //       setItems([...videogames].splice(firstIndex, itemsPorPagina));
-  //       setPaginaActual(prevPage);
-  //     } else {
-  //       setItems([...videogames].splice(paginaActual, itemsPorPagina));
-  //       return;
-  //     }
-  //   };
-
-  //   handler();
   return (
     <>
       <Container>

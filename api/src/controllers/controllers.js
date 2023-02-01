@@ -132,8 +132,10 @@ const buscarJuegoQuery = async (name) => {
   // Mapeo para enviar solo lo necesario
   respuesta = respuesta.map((game) => {
     return {
+      id: game.id,
       name: game.name,
       image: game.background_image,
+      rating: game.rating,
       genres: game.genres,
     };
   });
