@@ -6,6 +6,8 @@ import {
   CHANGE_ORIGEN,
   FILTRADO,
   ORDENADO,
+  CAMBIO_INDICE,
+  PAGINA_ACTUAL,
 } from "./actions";
 
 const initialState = {
@@ -15,6 +17,8 @@ const initialState = {
   filtroGenero: 0,
   filtroOrigen: "todos",
   ordenamiento: "defecto",
+  indice: 0,
+  paginaActual: 1,
 };
 
 const reducer = (state = initialState, action) => {
@@ -70,6 +74,19 @@ const reducer = (state = initialState, action) => {
       };
     }
     //
+    case CAMBIO_INDICE: {
+      return {
+        ...state,
+        indice: action.payload,
+      };
+    }
+    //
+    case PAGINA_ACTUAL: {
+      return {
+        ...state,
+        paginaActual: action.payload,
+      };
+    }
 
     default:
       return { ...state };

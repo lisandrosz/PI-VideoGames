@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import CartsContainer from "./CartsContainer";
 import styled from "styled-components";
+import { cambioIndice, cambioPagina } from "../redux/actions";
 
 const Container = styled.div`
   display: flex;
@@ -18,32 +19,29 @@ const P = styled.p`
 `;
 
 const Paginado = (props) => {
+  const dispatch = useDispatch();
+  const videogames = useSelector((state) => state.videogames);
+  const indice = useSelector((state) => state.indice);
+  const paginaActual = useSelector((state) => state.paginaActual);
+
   const itemsPorPagina = 15;
-  let videogames = useSelector((state) => state.videogames);
-  const [items, setItems] = useState([...videogames].splice(0, itemsPorPagina));
-  const [paginaActual, setPaginaActual] = useState(1);
+
+  const items = () => {
+    return videogames.slice(indice, indice + itemsPorPagina);
+  };
 
   const nextHandler = () => {
-    const cantidadPaginas = Math.ceil(videogames.length / itemsPorPagina);
-    const nextPage = paginaActual + 1;
-    const firstIndex = nextPage * itemsPorPagina;
-
-    if (paginaActual === cantidadPaginas || paginaActual > cantidadPaginas) {
-      return;
-    }
-
-    setItems([...videogames].splice(firstIndex, itemsPorPagina));
-    setPaginaActual(nextPage);
+    dispatch(cambioPagina(paginaActual + 1));
+    dispatch(cambioIndice(indice + itemsPorPagina));
   };
 
   const prevHandler = () => {
-    const prevPage = paginaActual - 1;
-
-    if (prevPage < 1) return;
-
-    const firstIndex = prevPage * itemsPorPagina;
-    setItems([...videogames].splice(firstIndex, itemsPorPagina));
-    setPaginaActual(prevPage);
+    if (indice > 0) {
+      dispatch(cambioPagina(paginaActual - 1));
+      dispatch(cambioIndice(indice - itemsPorPagina));
+    } else {
+      return;
+    }
   };
 
   //   const handler = (direccion) => {
@@ -85,7 +83,7 @@ const Paginado = (props) => {
         </button>
       </Container>
 
-      <CartsContainer videogames={items} />
+      <CartsContainer videogames={items()} />
     </>
   );
 };

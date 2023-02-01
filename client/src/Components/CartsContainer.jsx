@@ -12,10 +12,10 @@ const CartsContainer = (props) => {
       <CardsContainer>
         {videogames.map((game) => (
           <Card
+            key={game.ig}
             name={game.name}
             image={game.image}
             genres={game.genres}
-            key={game.name}
           />
         ))}
       </CardsContainer>

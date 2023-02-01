@@ -7,6 +7,8 @@ export const CHANGE_GENERO = "CHANGE_GENERO";
 export const CHANGE_ORIGEN = "CHANGE_ORIGEN";
 export const FILTRADO = "FILTRADO";
 export const ORDENADO = "ORDENADO";
+export const CAMBIO_INDICE = "CAMBIO_INDICE";
+export const PAGINA_ACTUAL = "PAGINA_ACTUAL";
 
 export const traerJuegos = () => {
   return function (dispatch) {
@@ -21,6 +23,8 @@ export const buscarJuegos = (name) => {
     axios
       .get(`http://localhost:3001/videogames?name=${name}`)
       .then((response) => {
+        dispatch({ type: PAGINA_ACTUAL, payload: 1 });
+        dispatch({ type: CAMBIO_INDICE, payload: 0 });
         dispatch({ type: BUSCAR_JUEGOS, payload: response.data });
       });
   };
@@ -103,6 +107,20 @@ export const filter = (tipoFiltro, valor) => {
       filtrado = filtrado.sort((a, b) => a.rating - b.rating);
     }
 
+    dispatch({ type: PAGINA_ACTUAL, payload: 1 });
+    dispatch({ type: CAMBIO_INDICE, payload: 0 });
     dispatch({ type: FILTRADO, payload: filtrado });
+  };
+};
+
+export const cambioIndice = (pagina) => {
+  return function (dispatch) {
+    dispatch({ type: CAMBIO_INDICE, payload: pagina });
+  };
+};
+
+export const cambioPagina = (pagina) => {
+  return function (dispatch) {
+    dispatch({ type: PAGINA_ACTUAL, payload: pagina });
   };
 };
