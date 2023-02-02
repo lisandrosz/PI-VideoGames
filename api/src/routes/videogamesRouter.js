@@ -44,24 +44,15 @@ router.get("/:idVideogame", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const {
-      name,
-      description,
-      releaseDate,
-      rating,
-      genres,
-      plataforms,
-      background_image,
-    } = req.body;
+    const { name, description, release, rating, genres, platforms } = req.body;
 
     let juegoCreado = await crearJuego(
       name,
       description,
-      releaseDate,
+      release,
       rating,
       genres,
-      plataforms,
-      background_image
+      platforms
     );
 
     res.status(200).json(juegoCreado);

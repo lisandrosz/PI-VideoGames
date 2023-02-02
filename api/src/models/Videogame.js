@@ -30,7 +30,7 @@ module.exports = (sequelize) => {
       },
       background_image: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       rating: {
         type: DataTypes.INTEGER,
@@ -39,8 +39,8 @@ module.exports = (sequelize) => {
           max: 5,
         },
       },
-      plataforms: {
-        type: DataTypes.STRING,
+      platforms: {
+        type: DataTypes.ARRAY(DataTypes.JSON),
         allowNull: false,
       },
     },

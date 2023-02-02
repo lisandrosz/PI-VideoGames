@@ -80,22 +80,20 @@ const consultaDB = async () => {
 const crearJuego = async (
   name,
   description,
-  releaseDate,
+  release,
   rating,
   genres,
-  plataforms,
-  background_image
+  platforms
 ) => {
   let juegoCreado = await Videogame.create({
     name,
     description,
-    releaseDate,
+    releaseDate: release,
     rating,
-    plataforms,
-    background_image,
+    platforms,
   });
 
-  genres = JSON.parse(genres);
+  // genres = JSON.parse(genres);
   genres.map(async (id) => {
     await juegoCreado.addGenres(id);
   });
@@ -156,7 +154,19 @@ const buscarPorID = async (id) => {
           attributes: [],
         },
       },
-    }).catch((error) => (detalleJuego = error.message));
+    })
+      .then((response) => {
+        return (detalleJuego = {
+          name: response.name,
+          image: response.background_image,
+          description: response.description,
+          released: response.released,
+          rating: response.rating,
+          platforms: response.platforms,
+          genres: response.genres,
+        });
+      })
+      .catch((error) => (detalleJuego = error.message));
   } else {
     // Busco en la API
     id = Number(id);

@@ -30,7 +30,8 @@ export const buscarJuegos = (name) => {
         dispatch({ type: PAGINA_ACTUAL, payload: 1 });
         dispatch({ type: CAMBIO_INDICE, payload: 0 });
         dispatch({ type: BUSCAR_JUEGOS, payload: response.data });
-      });
+      })
+      .catch((error) => alert(error.message));
   };
 };
 
@@ -150,11 +151,9 @@ export const buscado = (estado) => {
 
 export const traerDetalle = (id) => {
   return function (dispatch) {
-    axios
-      .get(`http://localhost:3001/videogames/${Number(id)}`)
-      .then((response) => {
-        dispatch({ type: TRAER_DETALLE, payload: response.data });
-      });
+    axios.get(`http://localhost:3001/videogames/${id}`).then((response) => {
+      dispatch({ type: TRAER_DETALLE, payload: response.data });
+    });
   };
 };
 
