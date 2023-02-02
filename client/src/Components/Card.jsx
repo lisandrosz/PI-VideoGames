@@ -19,10 +19,6 @@ const Container = styled.div`
   &:hover {
     transform: scale(1.1);
   }
-
-  /* -webkit-box-shadow: 16px 11px 24px 1px rgba(34, 87, 126, 0.41);
-  -moz-box-shadow: 16px 11px 24px 1px rgba(34, 87, 126, 0.41);
-  box-shadow: 16px 11px 24px 1px rgba(34, 87, 126, 0.41); */
 `;
 
 const Img = styled.img`

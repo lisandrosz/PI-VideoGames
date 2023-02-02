@@ -2,6 +2,70 @@ import React from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import styled from "styled-components";
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  background-color: #2a2438;
+  margin: 10px 0 10px 160px;
+  height: auto;
+  width: 80%;
+`;
+
+const Pdiv = styled.div`
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  flex-wrap: wrap;
+`;
+
+const Cdiv = styled.div`
+  display: inline-flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+`;
+
+const LabelCheck = styled.label`
+  color: white;
+  margin: 0 20px 5px 2px;
+`;
+
+const Input = styled.input`
+  margin: 0 0 20px 5px;
+  width: 50%;
+  height: 30px;
+`;
+
+const LabelInput = styled.label`
+  color: white;
+
+  display: inline-block;
+  width: 160px;
+`;
+
+const H1 = styled.h2`
+  color: white;
+  font-size: 30px;
+  margin: 15px 0 15px 0;
+`;
+
+const P = styled.p`
+  color: white;
+`;
+
+const PError = styled.p`
+  color: red;
+  margin: -2px 0 2px 0px;
+`;
+
+const SubmitButton = styled.button`
+  margin: 10px 0 15px 0;
+  height: 40px;
+  width: 80px;
+  border-radius: 5px;
+  font-size: 17px;
+`;
 
 const CreateActivity = (props) => {
   const generos = useSelector((state) => state.generos);
@@ -46,7 +110,7 @@ const CreateActivity = (props) => {
     if (!form.released) {
       errors.released = "Debe agregar una fecha";
     } else if (!/^\d{4}-\d{2}-\d{2}$/.test(form.released)) {
-      errors.released = "Debe poner una fecha valida (yyyy/mm/dd) ";
+      errors.released = "Debe poner una fecha valida (yyyy-mm-dd) ";
     }
 
     if (!form.rating) {
@@ -137,61 +201,60 @@ const CreateActivity = (props) => {
   };
 
   return (
-    <>
+    <Container>
       <form onSubmit={submitHandler}>
-        <h2>FORMULARIO CREACION JUEGO</h2>
+        <H1>FORMULARIO CREACION JUEGO</H1>
 
         <div>
-          <label name="name">Titulo: </label>
-          <input
+          {errors.name && <PError>{errors.name}</PError>}
+          <LabelInput name="name">Titulo: </LabelInput>
+          <Input
             type="text"
             onChange={changeHandler}
             value={form.name}
             name="name"
           />
         </div>
-        {errors.name && <p>{errors.name}</p>}
 
         <div>
-          <label name={"description"}>Descripcion: </label>
-          <input
+          {errors.description && <PError>{errors.description}</PError>}
+          <LabelInput name={"description"}>Descripcion: </LabelInput>
+          <Input
             type="text"
             name="description"
             onChange={changeHandler}
             value={form.description}
           />
         </div>
-        {errors.description && <p>{errors.description}</p>}
 
         <div>
-          <label name="released">Fecha de lanzamiento: </label>
-          <input
+          {errors.released && <PError>{errors.released}</PError>}
+          <LabelInput name="released">Fecha de lanzamiento: </LabelInput>
+          <Input
             type="text"
             name="released"
             onChange={changeHandler}
             value={form.released}
           />
         </div>
-        {errors.released && <p>{errors.released}</p>}
 
         <div>
-          <label name="rating">Puntaje: </label>
-          <input
+          {errors.rating && <PError>{errors.rating}</PError>}
+          <LabelInput name="rating">Puntaje: </LabelInput>
+          <Input
             type="text"
             name="rating"
             onChange={changeHandler}
             value={form.rating}
           />
         </div>
-        {errors.rating && <p>{errors.rating}</p>}
 
-        <div>
-          <p>Seleccionar generos:</p>
+        <Pdiv>
+          <P>Seleccionar generos:</P>
           <label name="genres">
             {generos.map((genero) => {
               return (
-                <>
-                  <br />
+                <Cdiv>
                   <input
                     type="checkbox"
                     name={genero.name}
@@ -199,20 +262,19 @@ const CreateActivity = (props) => {
                     id={genero.id}
                     onChange={checkGenreHandler}
                   />
-                  <label name={genero.name} for={genero.id}>
+                  <LabelCheck name={genero.name} for={genero.id}>
                     {genero.name}
-                  </label>
-                </>
+                  </LabelCheck>
+                </Cdiv>
               );
             })}
           </label>
-          {errors.genres && <p>{errors.genres}</p>}
-        </div>
+          {errors.genres && <PError>{errors.genres}</PError>}
+        </Pdiv>
 
-        <div>
+        <Pdiv>
           <label name={"platforms"}>
-            Seleccionar plataformas:
-            <br />
+            <P>Seleccionar plataformas:</P>
             <input
               type="checkbox"
               name="Pc"
@@ -220,9 +282,9 @@ const CreateActivity = (props) => {
               id="00"
               onChange={checkPlatHandler}
             />
-            <label name="pc" for="00">
+            <LabelCheck name="pc" for="00">
               Pc
-            </label>
+            </LabelCheck>
             <input
               type="checkbox"
               name="PlayStation 5"
@@ -230,9 +292,9 @@ const CreateActivity = (props) => {
               id="05"
               onChange={checkPlatHandler}
             />
-            <label name="PlayStation 5" for="05">
+            <LabelCheck name="PlayStation 5" for="05">
               PlayStation 5
-            </label>
+            </LabelCheck>
             <input
               type="checkbox"
               name="PlayStation 4"
@@ -240,9 +302,9 @@ const CreateActivity = (props) => {
               id="04"
               onChange={checkPlatHandler}
             />
-            <label name="PlayStation 4" for="04">
+            <LabelCheck name="PlayStation 4" for="04">
               PlayStation 4
-            </label>
+            </LabelCheck>
             <input
               type="checkbox"
               name="PlayStation 3"
@@ -250,9 +312,9 @@ const CreateActivity = (props) => {
               id="03"
               onChange={checkPlatHandler}
             />
-            <label name="PlayStation 3" for="03">
+            <LabelCheck name="PlayStation 3" for="03">
               PlayStation 3
-            </label>
+            </LabelCheck>
             <input
               type="checkbox"
               name="PlayStation 2"
@@ -260,9 +322,9 @@ const CreateActivity = (props) => {
               id="02"
               onChange={checkPlatHandler}
             />
-            <label name="PlayStation 2" for="02">
+            <LabelCheck name="PlayStation 2" for="02">
               PlayStation 2
-            </label>
+            </LabelCheck>
             <input
               type="checkbox"
               name="PlayStation 1"
@@ -270,9 +332,9 @@ const CreateActivity = (props) => {
               id="01"
               onChange={checkPlatHandler}
             />
-            <label name="PlayStation 1" for="01">
+            <LabelCheck name="PlayStation 1" for="01">
               PlayStation 1
-            </label>
+            </LabelCheck>
             <input
               type="checkbox"
               name="Xbox Series S/X"
@@ -280,9 +342,9 @@ const CreateActivity = (props) => {
               id="06"
               onChange={checkPlatHandler}
             />
-            <label name="Xbox Series S/X" for="06">
+            <LabelCheck name="Xbox Series S/X" for="06">
               Xbox Series S/X
-            </label>
+            </LabelCheck>
             <input
               type="checkbox"
               name="Xbox One"
@@ -290,9 +352,9 @@ const CreateActivity = (props) => {
               id="07"
               onChange={checkPlatHandler}
             />
-            <label name="Xbox One" for="07">
+            <LabelCheck name="Xbox One" for="07">
               Xbox One
-            </label>
+            </LabelCheck>
             <input
               type="checkbox"
               name="Xbox 360"
@@ -300,9 +362,9 @@ const CreateActivity = (props) => {
               id="08"
               onChange={checkPlatHandler}
             />
-            <label name="Xbox 360" for="08">
+            <LabelCheck name="Xbox 360" for="08">
               Xbox 360
-            </label>
+            </LabelCheck>
             <input
               type="checkbox"
               name="Nintendo Switch"
@@ -310,9 +372,9 @@ const CreateActivity = (props) => {
               id="09"
               onChange={checkPlatHandler}
             />
-            <label name="Nintendo Switch" for="09">
+            <LabelCheck name="Nintendo Switch" for="09">
               Nintendo Switch
-            </label>
+            </LabelCheck>
             <input
               type="checkbox"
               name="Nintendo Wii"
@@ -320,18 +382,18 @@ const CreateActivity = (props) => {
               id="010"
               onChange={checkPlatHandler}
             />
-            <label name="Nintendo Wii" for="010">
+            <LabelCheck name="Nintendo Wii" for="010">
               Nintendo Wii
-            </label>
+            </LabelCheck>
           </label>
-        </div>
-        {errors.platforms && <p>{errors.platforms}</p>}
+        </Pdiv>
+        {errors.platforms && <PError>{errors.platforms}</PError>}
 
-        <button type="submit" disabled={Object.keys(errors).length > 0}>
+        <SubmitButton type="submit" disabled={Object.keys(errors).length > 0}>
           Enviar
-        </button>
+        </SubmitButton>
       </form>
-    </>
+    </Container>
   );
 };
 
