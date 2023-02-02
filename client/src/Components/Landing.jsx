@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { Container, BotonIngresar } from "../styles/styleLanding";
+import { Container, BotonIngresar, H1 } from "../styles/styleLanding";
 import { traerJuegos, traerGeneros } from "../redux/actions";
 
 const Landing = (props) => {
@@ -14,6 +14,7 @@ const Landing = (props) => {
 
   return (
     <Container>
+      <H1>Bienvenido a la Videogames App</H1>
       <Link to={"/home"}>
         <BotonIngresar>Ingresar</BotonIngresar>
       </Link>

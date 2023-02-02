@@ -13,17 +13,16 @@ function App() {
         <Landing />
       </Route>
 
-      <Route>
-        <NavBar />
-      </Route>
-
       <Route exact path={"/home"}>
+        <NavBar />
         <Home />
       </Route>
 
+      <Route exact path={"/details/:id"} component={NavBar} />
       <Route exact path={"/details/:id"} component={VideogameDetails} />
 
       <Route exact path={"/creategame"}>
+        <NavBar />
         <CreateVideogame />
       </Route>
     </div>

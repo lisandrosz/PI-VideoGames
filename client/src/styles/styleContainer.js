@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const CardsContainer = styled.div`
-  width: 100%;
+  background-color: #5c5470;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

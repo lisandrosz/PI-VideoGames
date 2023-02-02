@@ -3,7 +3,8 @@ import styled from "styled-components";
 export const StyleNavBar = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: #323232;
+  background-color: #2a2438;
+  border-bottom: 2px solid #dbd8e3;
 `;
 
 export const HomeDiv = styled.p`

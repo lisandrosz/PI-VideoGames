@@ -7,15 +7,22 @@ import { cambioIndice, cambioPagina } from "../redux/actions";
 const Container = styled.div`
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
-  background-color: #cc5151;
-  height: 60px;
-  margin-bottom: 10px;
+  background-color: #352f44;
+  height: fit-content;
+  padding-bottom: 10px;
 `;
 
 const P = styled.p`
   color: white;
-  margin: 0 10px 0 10px;
+  margin: 0 70px 0 70px;
+`;
+
+const DIV = styled.div`
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 5px;
 `;
 
 const Paginado = (props) => {
@@ -50,13 +57,16 @@ const Paginado = (props) => {
   return (
     <>
       <Container>
-        <button type="button" onClick={prevHandler}>
-          Prev
-        </button>
-        <P>{paginaActual}</P>
-        <button type="button" onClick={nextHandler}>
-          Next
-        </button>
+        <P>Pagina actual</P>
+        <DIV>
+          <button type="button" onClick={prevHandler}>
+            Prev
+          </button>
+          <P>{paginaActual}</P>
+          <button type="button" onClick={nextHandler}>
+            Next
+          </button>
+        </DIV>
       </Container>
 
       <CartsContainer videogames={items} />

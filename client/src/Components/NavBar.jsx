@@ -37,10 +37,14 @@ const NavBar = (props) => {
       <HomeDiv>
         <H1>Videogames App</H1>
         <LinkDiv>
-          <Link to={"/home"} onClick={clickHome}>
+          <Link
+            style={{ textDecoration: "none" }}
+            to={"/home"}
+            onClick={clickHome}
+          >
             <P>Home</P>
           </Link>
-          <Link to={"/creategame"}>
+          <Link style={{ textDecoration: "none" }} to={"/creategame"}>
             <P>Crear Juego</P>
           </Link>
         </LinkDiv>
