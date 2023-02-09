@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { traerDetalle, limpiarDetalle } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import Loader from "./Loader";
 
 const Container = styled.div`
   display: flex;
@@ -53,6 +54,13 @@ const H1 = styled.h1`
   margin: 2px 0 2px 0;
 `;
 
+const DIVLOADER = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+`;
+
 const VideogameDetails = (props) => {
   const dispatch = useDispatch();
 
@@ -65,6 +73,13 @@ const VideogameDetails = (props) => {
 
   return (
     <Container>
+      {Object.entries(gameDetail).length === 0 && (
+        <DIVLOADER>
+          {" "}
+          <Loader />{" "}
+        </DIVLOADER>
+      )}
+
       {Object.keys(gameDetail).length !== 0 && (
         <Div>
           <Img src={gameDetail.image} alt="game"></Img>

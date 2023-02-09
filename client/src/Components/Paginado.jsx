@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CartsContainer from "./CartsContainer";
 import styled from "styled-components";
 import { cambioIndice, cambioPagina } from "../redux/actions";
+import Loader from "./Loader";
 
 const Container = styled.div`
   display: flex;
@@ -54,6 +55,13 @@ const Paginado = (props) => {
     }
   };
 
+  const DIVLOADER = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px;
+  `;
+
   return (
     <>
       <Container>
@@ -68,6 +76,13 @@ const Paginado = (props) => {
           </button>
         </DIV>
       </Container>
+
+      {videogames.length < 1 && (
+        <DIVLOADER>
+          {" "}
+          <Loader />{" "}
+        </DIVLOADER>
+      )}
 
       <CartsContainer videogames={items} />
     </>
